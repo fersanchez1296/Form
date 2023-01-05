@@ -6,3 +6,11 @@ html{
 body{
   margin-bottom: 10px;
 }
+
+.text-size{
+  font-size: 12px;
+}
+
+.invalid{
+  opacity: 0;
+}
