@@ -47,12 +47,16 @@ formulario.addEventListener("submit", (e) => {
 
 //Funciones
 function validarZipCode(e){
-  if (e.target.value.length < 5 || e.target.value.length > 5) {
+  if(isNaN(e.target.value)){
     e.target.classList.add("border-danger");
     e.target.classList.add("opacity-100", "text-danger");
-  } else if (e.target.value.length === 5) {
-    e.target.classList.remove("border-danger");
-    e.target.classList.add("border-success", "text-success");
-    e.target.classList.remove("opacity-100","text-danger");
+  }else{
+    if (e.target.value.length < 5 || e.target.value.length > 5) {
+      e.target.classList.add("border-danger");
+      e.target.classList.add("opacity-100", "text-danger");
+    } else if (e.target.value.length === 5) {
+      e.target.classList.add("border-success", "text-success");
+      e.target.classList.remove("opacity-100","text-danger","border-danger");
+    }
   }
 }
