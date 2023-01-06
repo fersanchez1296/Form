@@ -4,12 +4,13 @@ const invalid = document.querySelector(".invalid");
 
 //Agregar los objetos para direccion, ciudad y estado
 const campos = {
-  fullName:false,
-  email:false,
-  password:false,
-  zipCode:false
-
-}
+  fullName: false,
+  email: false,
+  password: false,
+  zipCode: false,
+  state: false,
+  city: false,
+};
 
 const validarFormulario = (e) => {
   switch (e.target.name) {
@@ -28,10 +29,12 @@ const validarFormulario = (e) => {
     case "city":
       validarCity(e);
       break;
-    case "state":
-      validarState(e);
-      console.log(e.target)
-      break;
+    // case "state":
+    //   No entra a este switch
+    //   console.log("hola desde state")
+    //   validarState(e);
+    //   console.log(e.target);
+    //   break;
     case "zipCode":
       validarZipCode(e);
       break;
@@ -41,18 +44,36 @@ const validarFormulario = (e) => {
 inputs.forEach((input) => {
   input.addEventListener("keyup", validarFormulario);
   input.addEventListener("blur", validarFormulario);
+  // No funciono esto
+  // input.addEventListener("change", validarFormulario);
 });
 
 formulario.addEventListener("submit", (e) => {
   e.preventDefault();
   //Agregar los objetos de direccion, ciudad y estado
-  if(campos.fullName && campos.email && campos.password  && campos.address && campos.zipCode && campos.city && campos.state){
+  if (
+    campos.fullName &&
+    campos.email &&
+    campos.password &&
+    campos.address &&
+    campos.zipCode &&
+    campos.city
+  ) {
     //Cambiar por modal
     alert("todo bien pana");
     formulario.reset();
-  }else{
+  } else {
     //Cambiar por modal
     alert("todo mal pana");
+
+    //Para las que esten vacias al momento de presionar save
+    inputs.forEach((input)=>{
+      if(input.value == ""){
+        input.classList.add("border-danger");
+        input.classList.add("opacity-100", "text-danger");
+      }
+    })
+    
   }
 });
 
@@ -67,7 +88,7 @@ function validarName(e) {
       e.target.classList.add("border-danger");
       e.target.classList.add("opacity-100", "text-danger");
       campos["fullName"] = false;
-    } else if (e.target.value.length >= 5 && words >= 2){
+    } else if (e.target.value.length >= 5 && words >= 2) {
       e.target.classList.add("border-success", "text-success");
       e.target.classList.remove("opacity-100", "text-danger", "border-danger");
       campos["fullName"] = true;
@@ -106,7 +127,7 @@ function validarEmail(e) {
 }
 
 function validarPassword(e) {
-  console.log(e.target.value)
+  console.log(e.target.value);
   /*
     Minimo 8 caracteres
     Maximo 15
@@ -116,7 +137,8 @@ function validarPassword(e) {
     No espacios en blanco
     Al menos un caracter especial
   */
-  let exprecionRegular = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,30}$/;
+  let exprecionRegular =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,30}$/;
   if (exprecionRegular.test(e.target.value)) {
     e.target.classList.add("border-success", "text-success");
     e.target.classList.remove("opacity-100", "text-danger", "border-danger");
@@ -148,17 +170,20 @@ function validarZipCode(e) {
 }
 
 function validarCity(e) {
-  if (e.target.value.length > 50 || e.target.value == "" || isNaN(e.target.value) == false) {
+  if (
+    e.target.value.length > 50 ||
+    e.target.value == "" ||
+    isNaN(e.target.value) == false
+  ) {
     e.target.classList.add("border-danger");
     e.target.classList.add("opacity-100", "text-danger");
     campos["address"] = false;
   } else if (e.target.value.length > 0 && e.target.value.length <= 150) {
-      e.target.classList.add("border-success", "text-success");
-      e.target.classList.remove("opacity-100", "text-danger", "border-danger");
-      campos["address"] = true;
-    }
+    e.target.classList.add("border-success", "text-success");
+    e.target.classList.remove("opacity-100", "text-danger", "border-danger");
+    campos["address"] = true;
   }
-
+}
 
 function validarAddress(e) {
   if (e.target.value.length > 150 || e.target.value == "") {
@@ -166,22 +191,36 @@ function validarAddress(e) {
     e.target.classList.add("opacity-100", "text-danger");
     campos["city"] = false;
   } else if (e.target.value.length > 0 && e.target.value.length <= 150) {
-      e.target.classList.add("border-success", "text-success");
-      e.target.classList.remove("opacity-100", "text-danger", "border-danger");
-      campos["city"] = true;
-    }
+    e.target.classList.add("border-success", "text-success");
+    e.target.classList.remove("opacity-100", "text-danger", "border-danger");
+    campos["city"] = true;
   }
+}
 
-function validarState(e) {
-  alert(e.target.value)
-  console.log(e.target.value)
-    if (e.target.value != "Select your state...") {
-      e.target.classList.add("border-danger");
-      e.target.classList.add("opacity-100", "text-danger");
-      campos["state"] = false;
-    } else{
-        e.target.classList.add("border-success", "text-success");
-        e.target.classList.remove("opacity-100", "text-danger", "border-danger");
-        campos["state"] = true;
-      }
-    }
+// function validarState(e) {
+  
+//   if (e.target.value != "") {
+//     console.log(e.target.value)
+//     e.target.classList.add("border-danger");
+//     e.target.classList.add("opacity-100", "text-danger");
+//     campos["state"] = false;
+//   } else {
+//     e.target.classList.add("border-success", "text-success");
+//     e.target.classList.remove("opacity-100", "text-danger", "border-danger");
+//     campos["state"] = true;
+//   }
+// }
+
+const selected = document.getElementById("state");
+selected.onchange = function(){
+  if (selected.value == "") {
+    console.log(selected.value)
+    selected.classList.add("border-danger");
+    selected.classList.add("opacity-100", "text-danger");
+    campos["state"] = false;
+  } else {
+    selected.classList.add("border-success", "text-success");
+    selected.classList.remove("opacity-100", "text-danger", "border-danger");
+    campos["state"] = true;
+  }
+}
