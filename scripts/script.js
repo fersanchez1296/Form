@@ -62,6 +62,12 @@ formulario.addEventListener("submit", (e) => {
     //Cambiar por modal
     alert("todo bien pana");
     formulario.reset();
+    //Reset de objetos a false
+    for(let campo in campos){
+      campos[campo] = false;
+    }
+    //Para evitar remover clases mejor recargar la pagina
+    location.reload();
   } else {
     //Cambiar por modal
     alert("todo mal pana");
@@ -213,7 +219,7 @@ function validarAddress(e) {
 
 const selected = document.getElementById("state");
 selected.onchange = function(){
-  if (selected.value == "") {
+  if (selected.value.length == 0) {
     console.log(selected.value)
     selected.classList.add("border-danger");
     selected.classList.add("opacity-100", "text-danger");
