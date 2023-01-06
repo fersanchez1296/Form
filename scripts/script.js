@@ -53,18 +53,17 @@ formulario.addEventListener("submit", (e) => {
 
 //Funciones
 function validarName(e) {
-  let longitud = e.target.value.length;
+  let letters = /^[a-zA-Z ]+$/;
   let arrayNames = e.target.value.split(" ");
   let words = arrayNames.length;
-  for (let i = 0; i < words; i++) {
-    console.log(isNaN(arrayNames[i]));
-  }
-  if (isNaN(e.target.value) == true) {
+
+  if (e.target.value.match(letters)) {
     if (words <= 1) {
+      console.log("hola")
       e.target.classList.add("border-danger");
       e.target.classList.add("opacity-100", "text-danger");
       campos["fullName"] = false;
-    } else if ((words) => 2 && longitud > 5) {
+    } else if (e.target.value.length >= 5 && words >= 2){
       e.target.classList.add("border-success", "text-success");
       e.target.classList.remove("opacity-100", "text-danger", "border-danger");
       campos["fullName"] = true;
