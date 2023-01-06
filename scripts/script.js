@@ -219,7 +219,7 @@ function validarAddress(e) {
 
 const selected = document.getElementById("state");
 selected.onchange = function(){
-  if (selected.value.length == 0) {
+  if (selected.value == "choose") {
     console.log(selected.value)
     selected.classList.add("border-danger");
     selected.classList.add("opacity-100", "text-danger");
