@@ -2,6 +2,7 @@ const formulario = document.getElementById("form");
 const inputs = document.querySelectorAll("#form input");
 const invalid = document.querySelector(".invalid");
 
+//Agregar los objetos para direccion, ciudad y estado
 const campos = {
   fullName:false,
   email:false,
@@ -21,6 +22,8 @@ const validadFormulario = (e) => {
     case "password":
       validarPassword(e);
       break;
+    
+    //Agregar las funciones
     case "address":
       console.log("funciona");
       break;
@@ -42,11 +45,14 @@ inputs.forEach((input) => {
 });
 
 formulario.addEventListener("submit", (e) => {
-  e.preventDefault;
+  e.preventDefault();
+  //Agregar los objetos de direccion, ciudad y estado
   if(campos.fullName && campos.email && campos.password && campos.zipCode){
-    alert("todo bien pana")
+    //Cambiar por modal
+    alert("todo bien pana");
     formulario.reset();
   }else{
+    //Cambiar por modal
     alert("todo mal pana");
   }
 });
@@ -59,7 +65,6 @@ function validarName(e) {
 
   if (e.target.value.match(letters)) {
     if (words <= 1) {
-      console.log("hola")
       e.target.classList.add("border-danger");
       e.target.classList.add("opacity-100", "text-danger");
       campos["fullName"] = false;
