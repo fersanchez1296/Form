@@ -11,7 +11,7 @@ const campos = {
 
 }
 
-const validadFormulario = (e) => {
+const validarFormulario = (e) => {
   switch (e.target.name) {
     case "full-name":
       validarName(e);
@@ -22,16 +22,15 @@ const validadFormulario = (e) => {
     case "password":
       validarPassword(e);
       break;
-    
-    //Agregar las funciones
     case "address":
-      console.log("funciona");
+      validarAddress(e);
       break;
     case "city":
-      console.log("funciona");
+      validarCity(e);
       break;
     case "state":
-      console.log("funciona");
+      validarState(e);
+      console.log(e.target)
       break;
     case "zipCode":
       validarZipCode(e);
@@ -40,14 +39,14 @@ const validadFormulario = (e) => {
 };
 
 inputs.forEach((input) => {
-  input.addEventListener("keyup", validadFormulario);
-  input.addEventListener("blur", validadFormulario);
+  input.addEventListener("keyup", validarFormulario);
+  input.addEventListener("blur", validarFormulario);
 });
 
 formulario.addEventListener("submit", (e) => {
   e.preventDefault();
   //Agregar los objetos de direccion, ciudad y estado
-  if(campos.fullName && campos.email && campos.password && campos.zipCode){
+  if(campos.fullName && campos.email && campos.password  && campos.address && campos.zipCode && campos.city && campos.state){
     //Cambiar por modal
     alert("todo bien pana");
     formulario.reset();
@@ -147,3 +146,42 @@ function validarZipCode(e) {
     }
   }
 }
+
+function validarCity(e) {
+  if (e.target.value.length > 50 || e.target.value == "" || isNaN(e.target.value) == false) {
+    e.target.classList.add("border-danger");
+    e.target.classList.add("opacity-100", "text-danger");
+    campos["address"] = false;
+  } else if (e.target.value.length > 0 && e.target.value.length <= 150) {
+      e.target.classList.add("border-success", "text-success");
+      e.target.classList.remove("opacity-100", "text-danger", "border-danger");
+      campos["address"] = true;
+    }
+  }
+
+
+function validarAddress(e) {
+  if (e.target.value.length > 150 || e.target.value == "") {
+    e.target.classList.add("border-danger");
+    e.target.classList.add("opacity-100", "text-danger");
+    campos["city"] = false;
+  } else if (e.target.value.length > 0 && e.target.value.length <= 150) {
+      e.target.classList.add("border-success", "text-success");
+      e.target.classList.remove("opacity-100", "text-danger", "border-danger");
+      campos["city"] = true;
+    }
+  }
+
+function validarState(e) {
+  alert(e.target.value)
+  console.log(e.target.value)
+    if (e.target.value != "Select your state...") {
+      e.target.classList.add("border-danger");
+      e.target.classList.add("opacity-100", "text-danger");
+      campos["state"] = false;
+    } else{
+        e.target.classList.add("border-success", "text-success");
+        e.target.classList.remove("opacity-100", "text-danger", "border-danger");
+        campos["state"] = true;
+      }
+    }
