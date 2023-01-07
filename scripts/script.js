@@ -57,7 +57,8 @@ formulario.addEventListener("submit", (e) => {
     campos.password &&
     campos.address &&
     campos.zipCode &&
-    campos.city
+    campos.city &&
+    campos.state
   ) {
     //Cambiar por modal
     alert("todo bien pana");
@@ -202,20 +203,6 @@ function validarAddress(e) {
     campos["city"] = true;
   }
 }
-
-// function validarState(e) {
-  
-//   if (e.target.value != "") {
-//     console.log(e.target.value)
-//     e.target.classList.add("border-danger");
-//     e.target.classList.add("opacity-100", "text-danger");
-//     campos["state"] = false;
-//   } else {
-//     e.target.classList.add("border-success", "text-success");
-//     e.target.classList.remove("opacity-100", "text-danger", "border-danger");
-//     campos["state"] = true;
-//   }
-// }
 
 const selected = document.getElementById("state");
 selected.onchange = function(){
